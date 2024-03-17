@@ -17,7 +17,8 @@ export const MobileNavBackground: React.FC<{ isOpen?: boolean }> = ({
       <motion.div
         transition={{
           type: "spring",
-          duration: 1.2,
+          duration: 0.8,
+          delay: isOpen ? 0 : 0.2,
         }}
         variants={{
           open: {

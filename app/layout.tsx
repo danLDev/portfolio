@@ -31,7 +31,13 @@ export default function RootLayout({
             height: "100%",
           })}
         >
-          <main className={css({ flex: "1 1 auto", position: "relative" })}>
+          <main
+            className={css({
+              flex: "1 1 auto",
+              position: "relative",
+              overflow: "hidden",
+            })}
+          >
             <div
               className={css({
                 position: "absolute",

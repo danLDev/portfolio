@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { MobileNavBackground } from "./mobile-nav-background";
 import { AnimatePresence } from "framer-motion";
 import { BurgerIcon } from "./burger-icon";
+import { MobileNavMenu } from "./mobile-nav-menu";
 
 export const MobileNav: React.FC = () => {
   const [navIsOpen, { off: closeNav, toggle: toggleNavIsOpen }] =
@@ -32,7 +33,7 @@ export const MobileNav: React.FC = () => {
           height: [50, 60, 70],
           cursor: "pointer",
           pointerEvents: "all",
-          zIndex: 1,
+          zIndex: 2,
           fontSize: "xx-large",
           borderRadius: navIsOpen ? "18px 9px 18px 9px" : "9px 18px 9px 18px",
           transition: "border-radius .2s ease-in-out",
@@ -43,6 +44,7 @@ export const MobileNav: React.FC = () => {
       </button>
 
       <MobileNavBackground isOpen={navIsOpen} />
+      <MobileNavMenu isOpen={navIsOpen} />
     </>
   );
 };

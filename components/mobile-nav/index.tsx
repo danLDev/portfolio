@@ -1,0 +1,48 @@
+"use client";
+import { useBoolean } from "@/hooks/use-boolean";
+import { css } from "@/styled-system/css";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { MobileNavBackground } from "./mobile-nav-background";
+import { AnimatePresence } from "framer-motion";
+import { BurgerIcon } from "./burger-icon";
+
+export const MobileNav: React.FC = () => {
+  const [navIsOpen, { off: closeNav, toggle: toggleNavIsOpen }] =
+    useBoolean(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (navIsOpen) {
+      closeNav();
+    }
+  }, [pathname, closeNav]);
+
+  return (
+    <>
+      <button
+        className={css({
+          position: "absolute",
+          right: 20,
+          bottom: 20,
+          color: "white",
+          width: 80,
+          boxShadow: "0px 0px 0px 8px {colors.primary/40}",
+          background: navIsOpen ? "gray" : "primary",
+          height: 80,
+          cursor: "pointer",
+          pointerEvents: "all",
+          zIndex: 1,
+          fontSize: "xx-large",
+          borderRadius: navIsOpen ? "18px 9px 18px 9px" : "9px 18px 9px 18px",
+          transition: "border-radius .2s ease-in-out",
+        })}
+        onClick={toggleNavIsOpen}
+      >
+        <BurgerIcon isOpen={navIsOpen} />
+      </button>
+
+      <MobileNavBackground isOpen={navIsOpen} />
+    </>
+  );
+};

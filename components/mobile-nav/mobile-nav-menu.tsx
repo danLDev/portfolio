@@ -28,6 +28,7 @@ export const MobileNavMenu: React.FC<{ isOpen?: boolean }> = ({ isOpen }) => {
     >
       {MOBILE_NAV_LINKS.map((l, i) => (
         <motion.li
+          key={i}
           transition={{ delay: isOpen ? 0.2 + i * 0.05 : i * 0.05 }}
           variants={{
             open: {

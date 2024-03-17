@@ -17,7 +17,7 @@ export const MobileNav: React.FC = () => {
     if (navIsOpen) {
       closeNav();
     }
-  }, [pathname, closeNav]);
+  }, [pathname, closeNav, navIsOpen]);
 
   return (
     <>

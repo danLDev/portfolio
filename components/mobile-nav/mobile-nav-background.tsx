@@ -33,8 +33,8 @@ export const MobileNavBackground: React.FC<{ isOpen?: boolean }> = ({
           position: "absolute",
           right: 20,
           bottom: 20,
-          width: 80,
-          height: 80,
+          width: [50, 60, 70],
+          height: [50, 60, 70],
         })}
         initial={"closed"}
         animate={isOpen ? "open" : "closed"}

@@ -28,7 +28,7 @@ export default function RootLayout({
           className={css({
             display: "flex",
             flexDir: "column",
-            height: "100dvh",
+            height: "100%",
           })}
         >
           <main className={css({ flex: "1 1 auto", position: "relative" })}>

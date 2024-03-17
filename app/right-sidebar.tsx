@@ -19,7 +19,7 @@ export const RightSideBar: React.FC = () => {
         className={css({
           width: "3px",
           backgroundColor: "primary",
-          height: "15vh",
+          height: "12vh",
         })}
       />
       <a

@@ -10,7 +10,7 @@ export const LeftSideBar: React.FC = () => {
         className={css({
           width: "3px",
           backgroundColor: "primary",
-          height: "20vh",
+          height: "15vh",
         })}
       />
       <Link

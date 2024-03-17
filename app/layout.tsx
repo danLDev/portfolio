@@ -20,15 +20,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={css({ height: "100%" })}>
       <body
-        className={`${raleway.className} ${css({ backgroundColor: "gray" })}`}
+        className={`${raleway.className} ${css({ backgroundColor: "gray", height: "100%" })}`}
       >
         <div
           className={css({
             display: "flex",
             flexDir: "column",
-            height: "100vh",
+            height: "100dvh",
           })}
         >
           <main className={css({ flex: "1 1 auto", position: "relative" })}>

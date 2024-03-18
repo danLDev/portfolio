@@ -14,10 +14,8 @@ export const MobileNav: React.FC = () => {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (navIsOpen) {
-      closeNav();
-    }
-  }, [pathname, closeNav, navIsOpen]);
+    closeNav();
+  }, [pathname, closeNav]);
 
   return (
     <>

@@ -1,0 +1,94 @@
+---
+interface Props {
+  cx: number;
+  cy: number;
+  size: number;
+
+  colors?: {
+    top: string;
+    left: string;
+    right: string;
+  };
+
+  border?: string;
+  borderWidth?: number;
+}
+
+const {
+  cx,
+  cy,
+  size,
+  colors = {
+    top: "#ffffff",
+    left: "#cccccc",
+    right: "#888888",
+  },
+  border = "#000000",
+  borderWidth = 2,
+} = Astro.props;
+
+
+const cos30 = Math.cos(Math.PI / 6);
+const sin30 = Math.sin(Math.PI / 6);
+
+const x = size * cos30;
+const y = size * sin30;
+
+
+// Top face
+const top = [
+  [cx, cy - size],
+  [cx + x, cy - size + y],
+  [cx, cy - size + y * 2],
+  [cx - x, cy - size + y],
+];
+
+
+// Left face
+const left = [
+  [cx - x, cy - size + y],
+  [cx, cy - size + y * 2],
+  [cx, cy + y * 2],
+  [cx - x, cy + y],
+];
+
+
+// Right face
+const right = [
+  [cx + x, cy - size + y],
+  [cx, cy - size + y * 2],
+  [cx, cy + y * 2],
+  [cx + x, cy + y],
+];
+
+
+function points(points: number[][]) {
+  return points.map(([x, y]) => `${x},${y}`).join(" ");
+}
+---
+
+<g>
+  <polygon
+    points={points(left)}
+    fill={colors.left}
+    stroke={border}
+    stroke-width={borderWidth}
+    stroke-linejoin="round"
+  />
+
+  <polygon
+    points={points(right)}
+    fill={colors.right}
+    stroke={border}
+    stroke-width={borderWidth}
+    stroke-linejoin="round"
+  />
+
+  <polygon
+    points={points(top)}
+    fill={colors.top}
+    stroke={border}
+    stroke-width={borderWidth}
+    stroke-linejoin="round"
+  />
+</g>

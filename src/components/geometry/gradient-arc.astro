@@ -1,0 +1,137 @@
+---
+interface Stop {
+  offset: number; // 0-1
+  color: string;
+}
+
+interface Props {
+  cx: number;
+  cy: number;
+  radius: number;
+
+  start: number;
+  sweep: number;
+
+  segments?: number;
+  strokeWidth?: number;
+
+  stops: Stop[];
+}
+
+const {
+  cx,
+  cy,
+  radius,
+  start,
+  sweep,
+  segments = 64,
+  strokeWidth = 4,
+  stops,
+} = Astro.props;
+
+function polar(angle: number) {
+  const radians = (angle * Math.PI) / 180;
+
+  return {
+    x: cx + radius * Math.cos(radians),
+    y: cy + radius * Math.sin(radians),
+  };
+}
+
+function lerp(a: number, b: number, t: number) {
+  return a + (b - a) * t;
+}
+
+function hexToRgb(hex: string) {
+  const value = hex.replace("#", "");
+
+  return {
+    r: parseInt(value.slice(0, 2), 16),
+    g: parseInt(value.slice(2, 4), 16),
+    b: parseInt(value.slice(4, 6), 16),
+  };
+}
+
+function rgbToHex({
+  r,
+  g,
+  b,
+}: {
+  r: number;
+  g: number;
+  b: number;
+}) {
+  return `#${[r, g, b]
+    .map((v) => Math.round(v).toString(16).padStart(2, "0"))
+    .join("")}`;
+}
+
+function colorAt(t: number) {
+  if (t <= stops[0].offset) {
+    return stops[0].color;
+  }
+
+  if (t >= stops[stops.length - 1].offset) {
+    return stops[stops.length - 1].color;
+  }
+
+  let left = stops[0];
+  let right = stops[1];
+
+  for (let i = 0; i < stops.length - 1; i++) {
+    if (t >= stops[i].offset && t <= stops[i + 1].offset) {
+      left = stops[i];
+      right = stops[i + 1];
+      break;
+    }
+  }
+
+  const local =
+    (t - left.offset) /
+    (right.offset - left.offset);
+
+  const a = hexToRgb(left.color);
+  const b = hexToRgb(right.color);
+
+  return rgbToHex({
+    r: lerp(a.r, b.r, local),
+    g: lerp(a.g, b.g, local),
+    b: lerp(a.b, b.b, local),
+  });
+}
+
+const lines = Array.from({ length: segments }, (_, i) => {
+  const t1 = i / segments;
+  const t2 = (i + 1) / segments;
+
+  const p1 = polar(start + sweep * t1);
+  const p2 = polar(start + sweep * t2);
+
+  return {
+    x1: p1.x,
+    y1: p1.y,
+    x2: p2.x,
+    y2: p2.y,
+    color: colorAt((t1 + t2) / 2),
+  };
+});
+---
+
+<svg
+  viewBox={`0 0 ${cx * 2} ${cy * 2}`}
+  xmlns="http://www.w3.org/2000/svg"
+>
+  {
+    lines.map((line) => (
+      <line
+        x1={line.x1}
+        y1={line.y1}
+        x2={line.x2}
+        y2={line.y2}
+        stroke={line.color}
+        stroke-width={strokeWidth}
+        stroke-linecap="round"
+      />
+    ))
+  }
+</svg>

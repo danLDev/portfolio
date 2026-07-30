@@ -1,0 +1,70 @@
+---
+import { css } from "../../styled-system/css";
+import { hstack, stack } from "../../styled-system/patterns";
+import { button } from "../../styled-system/recipes";
+import Geo1 from "./geometry/geo-1.astro";
+---
+
+<section
+	class={css({
+		borderBottom: "solid {colors.neutral.400} 1px",
+	})}
+>
+	<div
+		class={hstack({
+			maxWidth: "1200px",
+			marginRight: "auto",
+			marginLeft: "auto",
+			padding: "x2",
+			height: "90vh",
+		})}
+	>
+		<div class={stack({ maxWidth: "600px", gap: "x3" })}>
+			<h3
+				class={css({
+					color: "primary",
+					textStyle: "body.md.regular",
+					textTransform: "uppercase",
+				})}
+			>
+				Dan Lincoln
+			</h3>
+			<p
+				class={css({
+					color: "neutral.0",
+					textStyle: "body.xl.regular",
+					textTransform: "uppercase",
+				})}
+			>
+				I build scalable <span class={css({ color: "primary" })}>
+					frontends
+				</span> and high performing teams
+			</p>
+			<p
+				class={css({
+					color: "neutral.100",
+					textStyle: "body.lg.regular",
+				})}
+			>
+				Staff engineer with 10+ years of experience building complex web
+				applications and leading engineering teams.
+			</p>
+			<div class={hstack()}>
+				<button class={button({ size: "md" })}> View my work</button>
+				<button class={button({ size: "md", appearance: "ghost" })}>
+					Read my writing</button
+				>
+			</div>
+		</div>
+	</div>
+	<div
+		class={css({
+			position: "absolute",
+			right: "0",
+			top: "50%",
+			transform: "translateY(-50%)",
+		})}
+	>
+		<Geo1 width={"700px"} height={"700px"} />
+	</div>
+</section>

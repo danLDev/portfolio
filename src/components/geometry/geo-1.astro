@@ -1,0 +1,125 @@
+---
+import { token } from "../../../styled-system/tokens";
+import GradientArc from "./gradient-arc.astro";
+import NodeGrid from "./node-grid.astro";
+import ISOCube from "./iso-cube.astro";
+interface Props {
+    width?: string;
+    height?: string;
+    class?: string;
+}
+
+const { width = "100%", height = "100%", class: className = "" } = Astro.props;
+---
+
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    viewBox="0 0 1000 1000"
+    preserveAspectRatio="xMidYMid meet"
+    class={className}
+>
+    <GradientArc
+        cx={500}
+        cy={500}
+        radius={300}
+        start={130}
+        sweep={230}
+        segments={100}
+        strokeWidth={3}
+        stops={[
+            { offset: 0, color: token("colors.neutral.900") },
+            { offset: 0.1, color: token("colors.neutral.200") },
+            { offset: 0.4, color: token("colors.neutral.400") },
+            { offset: 0.5, color: token("colors.neutral.400") },
+            { offset: 0.6, color: token("colors.neutral.400") },
+            { offset: 0.7, color: token("colors.red.900") },
+            { offset: 0.83, color: token("colors.red.900") },
+            { offset: 0.8, color: token("colors.red.900") },
+            { offset: 1, color: token("colors.neutral.900") },
+        ]}
+    />
+
+    <NodeGrid
+        cx={400}
+        cy={700}
+        columns={40}
+        rows={40}
+        spacing={22}
+        offset={[17, 19]}
+        radius={2}
+        falloff={8}
+        colors={{
+            min: token("colors.neutral.400"),
+            max: token("colors.neutral.100"),
+        }}
+    />
+
+    <NodeGrid
+        cx={600}
+        cy={380}
+        columns={28}
+        rows={28}
+        spacing={22}
+        offset={[17, 15.5]}
+        radius={3}
+        falloff={4}
+        colors={{
+            min: token("colors.neutral.400"),
+            max: token("colors.red.900"),
+        }}
+    />
+
+    <ISOCube
+        cx={477}
+        cy={570}
+        size={140}
+        colors={{
+            top: token("colors.neutral.900"),
+            left: token("colors.neutral.100"),
+            right: token("colors.neutral.900"),
+        }}
+        border={token("colors.neutral.400")}
+        borderWidth={2}
+    />
+
+    <ISOCube
+        cx={722}
+        cy={570}
+        size={140}
+        colors={{
+            top: token("colors.red.900"),
+            left: token("colors.neutral.900"),
+            right: token("colors.neutral.900"),
+        }}
+        border={token("colors.neutral.400")}
+        borderWidth={2}
+    />
+
+    <ISOCube
+        cx={478}
+        cy={430}
+        size={140}
+        colors={{
+            top: token("colors.neutral.900"),
+            left: token("colors.neutral.900"),
+            right: token("colors.neutral.900"),
+        }}
+        border={token("colors.neutral.400")}
+        borderWidth={2}
+    />
+
+    <ISOCube
+        cx={600}
+        cy={640}
+        size={140}
+        colors={{
+            top: token("colors.neutral.900"),
+            left: token("colors.neutral.900"),
+            right: token("colors.neutral.900"),
+        }}
+        border={token("colors.neutral.400")}
+        borderWidth={2}
+    />
+</svg>
